@@ -1,10 +1,12 @@
 import pytest
 from playwright.sync_api import expect
 
+
 def go_to_checkout(logged_in, checkout_page):
     logged_in.add_first_item()
     logged_in.open_cart()
     checkout_page.start()
+
 
 @pytest.mark.smoke
 def test_successful_checkout(page, logged_in, checkout_page):
@@ -16,16 +18,23 @@ def test_successful_checkout(page, logged_in, checkout_page):
     expect(page).to_have_url("https://www.saucedemo.com/checkout-complete.html")
     expect(checkout_page.complete_header).to_have_text("Thank you for your order!")
 
+
 @pytest.mark.regression
-@pytest.mark.parametrize("first,last,zip_code,message", [
-    ("", "User", "44720", "First Name is required"),
-    ("Test", "", "44720", "Last Name is required"),
-    ("Test", "User", "", "Postal Code is required"),
-])
-def test_missing_checkout_fields(logged_in, checkout_page, first, last, zip_code, message):
+@pytest.mark.parametrize(
+    "first,last,zip_code,message",
+    [
+        ("", "User", "44720", "First Name is required"),
+        ("Test", "", "44720", "Last Name is required"),
+        ("Test", "User", "", "Postal Code is required"),
+    ],
+)
+def test_missing_checkout_fields(
+    logged_in, checkout_page, first, last, zip_code, message
+):
     go_to_checkout(logged_in, checkout_page)
     checkout_page.fill_info(first, last, zip_code)
     expect(checkout_page.error).to_contain_text(message)
+
 
 @pytest.mark.regression
 def test_checkout_overview_shows_correct_item_count(logged_in, checkout_page):

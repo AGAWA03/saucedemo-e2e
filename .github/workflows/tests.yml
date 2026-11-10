@@ -18,7 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pytest-playwright pytest-html
+      - run: pip install pytest-playwright pytest-html ruff
+      - run: ruff check .
+      - run: ruff format --check .
       - run: playwright install --with-deps ${{ matrix.browser }}
       - run: python -m pytest --browser ${{ matrix.browser }} --html=report-${{ matrix.browser }}.html --self-contained-html
       - uses: actions/upload-artifact@v4

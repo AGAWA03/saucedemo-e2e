@@ -10,6 +10,10 @@ End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with 
 
 
 
+\*\*Live test reports:\*\* https://agawa03.github.io/saucedemo-e2e/
+
+
+
 \## Features
 
 
@@ -27,6 +31,8 @@ End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with 
 \- Cross-browser CI matrix (Chromium, Firefox, WebKit)
 
 \- API tests using Playwright's request context
+
+\- Linting and formatting enforced in CI with ruff
 
 
 
@@ -75,6 +81,22 @@ python -m pytest
 python -m pytest --headed
 
 ```
+
+
+
+\## Lint
+
+
+
+```
+
+ruff check .
+
+ruff format --check .
+
+```
+
+
 
 \## Test markers
 
