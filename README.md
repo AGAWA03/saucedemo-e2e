@@ -24,6 +24,10 @@ End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with 
 
 \- CI on GitHub Actions
 
+\- Cross-browser CI matrix (Chromium, Firefox, WebKit)
+
+\- API tests using Playwright's request context
+
 
 
 \## Tech stack
@@ -103,6 +107,8 @@ The first command runs headless. The second opens a visible browser.
 | Inventory | Product count, sorting by name and price |
 
 | Checkout  | Full purchase flow, required-field validation, order summary |
+
+| API | GET, POST, PUT, DELETE, 404 handling, query filtering (JSONPlaceholder) |
 
 
 
