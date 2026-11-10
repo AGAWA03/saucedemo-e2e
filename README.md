@@ -10,7 +10,7 @@ Automated UI and API tests built with \*\*Python, pytest, and Playwright\*\*, ru
 
 
 
-\*\*\[View live test reports](https://agawa03.github.io/saucedemo-e2e/)\*\*
+
 
 
 
