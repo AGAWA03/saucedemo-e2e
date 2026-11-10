@@ -2,19 +2,33 @@
 
 
 
-!\[tests](https://github.com/agawa03/saucedemo-e2e/actions/workflows/tests.yml/badge.svg)
+\[!\[E2E tests](https://github.com/agawa03/saucedemo-e2e/actions/workflows/tests.yml/badge.svg)](https://github.com/agawa03/saucedemo-e2e/actions/workflows/tests.yml)
 
 
 
-End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), built with Python, pytest, and Playwright.
+Automated UI and API tests built with \*\*Python, pytest, and Playwright\*\*, running in CI across three browsers.
 
 
 
-\*\*Live test reports:\*\* https://agawa03.github.io/saucedemo-e2e/
+\*\*\[View live test reports](https://agawa03.github.io/saucedemo-e2e/)\*\*
 
 
 
 !\[Test report](docs/report.png)
+
+
+
+\## What this tests
+
+
+
+\- \*\*UI:\*\* \[saucedemo.com](https://www.saucedemo.com), a practice e-commerce site (login, inventory, cart, checkout)
+
+\- \*\*API:\*\* \[JSONPlaceholder](https://jsonplaceholder.typicode.com), a free fake REST API
+
+
+
+Both are public practice targets, chosen to demonstrate framework design, CI, and testing habits.
 
 
 
@@ -42,11 +56,97 @@ End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), bui
 
 
 
-\## Tech stack
+\## Test coverage
 
 
 
-Python, pytest, Playwright, pytest-html, ruff, GitHub Actions
+| Area      | Tests | What is covered                                          |
+
+|-----------|-------|----------------------------------------------------------|
+
+| Login     | 5     | Valid login, locked-out user, 3 invalid credential cases |
+
+| Inventory | 5     | Product count, sorting by name and price                 |
+
+| Cart      | 4     | Add, add multiple, remove, cart page contents            |
+
+| Checkout  | 5     | Full purchase flow, required-field validation, summary   |
+
+| API       | 7     | GET, POST, PUT, DELETE, 404 handling, query filtering    |
+
+| \*\*Total\*\* | \*\*26\*\* |                                                         |
+
+
+
+\## Getting started
+
+
+
+```bash
+
+git clone https://github.com/agawa03/saucedemo-e2e.git
+
+cd saucedemo-e2e
+
+python -m venv venv
+
+```
+
+
+
+Activate the virtual environment:
+
+
+
+```bash
+
+\# Windows
+
+venv\\Scripts\\activate
+
+
+
+\# Mac / Linux
+
+source venv/bin/activate
+
+```
+
+
+
+Install dependencies and the browser:
+
+
+
+```bash
+
+pip install pytest-playwright pytest-html ruff
+
+playwright install chromium
+
+```
+
+
+
+\## Usage
+
+
+
+```bash
+
+python -m pytest                      # run everything, headless
+
+python -m pytest --headed             # watch the browser
+
+python -m pytest --browser firefox    # choose a browser
+
+python -m pytest -m smoke             # 5 fast critical-path tests
+
+python -m pytest -m regression        # 21 broader tests
+
+ruff check . \&\& ruff format --check . # lint and formatting
+
+```
 
 
 
@@ -54,7 +154,7 @@ Python, pytest, Playwright, pytest-html, ruff, GitHub Actions
 
 
 
-```
+```text
 
 pages/        Page objects (login, inventory, checkout)
 
@@ -66,101 +166,9 @@ pytest.ini    Pytest config and markers
 
 .github/      CI workflow
 
-```
-
-
-
-\## Setup
-
-
+docs/         README images
 
 ```
-
-git clone https://github.com/agawa03/saucedemo-e2e.git
-
-cd saucedemo-e2e
-
-python -m venv venv
-
-venv\\Scripts\\activate
-
-pip install pytest-playwright pytest-html ruff
-
-playwright install chromium
-
-```
-
-
-
-On Mac/Linux, activate with `source venv/bin/activate` instead.
-
-
-
-\## Run the tests
-
-
-
-```
-
-python -m pytest
-
-python -m pytest --headed
-
-python -m pytest --browser firefox
-
-```
-
-
-
-\## Test markers
-
-
-
-```
-
-python -m pytest -m smoke
-
-python -m pytest -m regression
-
-```
-
-
-
-\## Lint
-
-
-
-```
-
-ruff check .
-
-ruff format --check .
-
-```
-
-
-
-\## Test coverage
-
-
-
-| Area      | Tests                                                          |
-
-|-----------|----------------------------------------------------------------|
-
-| Login     | Valid login, locked-out user, 3 invalid credential cases       |
-
-| Inventory | Product count, sorting by name and price                       |
-
-| Cart      | Add, add multiple, remove, cart page contents                  |
-
-| Checkout  | Full purchase flow, required-field validation, order summary   |
-
-| API       | GET, POST, PUT, DELETE, 404 handling, query filtering          |
-
-
-
-26 tests in total.
 
 
 
@@ -177,4 +185,12 @@ ruff format --check .
 \- \*\*Markers:\*\* a fast smoke suite for quick feedback, a full regression suite for completeness.
 
 \- \*\*CI matrix:\*\* the same suite runs on three browser engines to catch browser-specific issues.
+
+
+
+\## Tech stack
+
+
+
+Python, pytest, Playwright, pytest-html, ruff, GitHub Actions
 
