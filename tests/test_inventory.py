@@ -24,16 +24,12 @@ def test_sort_name_z_to_a(logged_in):
 @pytest.mark.regression
 def test_sort_price_low_to_high(logged_in):
     logged_in.sort_by("Price (low to high)")
-    prices = [
-        float(p.replace("$", "")) for p in logged_in.item_prices.all_inner_texts()
-    ]
+    prices = [float(p.replace("$", "")) for p in logged_in.item_prices.all_inner_texts()]
     assert prices == sorted(prices)
 
 
 @pytest.mark.regression
 def test_sort_price_high_to_low(logged_in):
     logged_in.sort_by("Price (high to low)")
-    prices = [
-        float(p.replace("$", "")) for p in logged_in.item_prices.all_inner_texts()
-    ]
+    prices = [float(p.replace("$", "")) for p in logged_in.item_prices.all_inner_texts()]
     assert prices == sorted(prices, reverse=True)

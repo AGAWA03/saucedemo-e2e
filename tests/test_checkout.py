@@ -28,9 +28,7 @@ def test_successful_checkout(page, logged_in, checkout_page):
         ("Test", "User", "", "Postal Code is required"),
     ],
 )
-def test_missing_checkout_fields(
-    logged_in, checkout_page, first, last, zip_code, message
-):
+def test_missing_checkout_fields(logged_in, checkout_page, first, last, zip_code, message):
     go_to_checkout(logged_in, checkout_page)
     checkout_page.fill_info(first, last, zip_code)
     expect(checkout_page.error).to_contain_text(message)
