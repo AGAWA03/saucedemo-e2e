@@ -72,9 +72,19 @@ python -m pytest --headed
 
 ```
 
+\## Test markers
 
+
+
+```
+
+python -m pytest -m smoke        # fast critical-path checks
+
+python -m pytest -m regression   # full coverage
 
 The first command runs headless. The second opens a visible browser.
+
+```
 
 
 
@@ -89,6 +99,10 @@ The first command runs headless. The second opens a visible browser.
 | Login | Valid login, locked-out user, 3 invalid credential cases |
 
 | Cart  | Adding an item updates the cart badge                    |
+
+| Inventory | Product count, sorting by name and price |
+
+| Checkout  | Full purchase flow, required-field validation, order summary |
 
 
 
