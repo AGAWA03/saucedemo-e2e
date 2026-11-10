@@ -14,10 +14,6 @@ Automated UI and API tests built with \*\*Python, pytest, and Playwright\*\*, ru
 
 
 
-!\[Test report](docs/report.png)
-
-
-
 \## What this tests
 
 
