@@ -6,11 +6,15 @@
 
 
 
-End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with Python, pytest, and Playwright.
+End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), built with Python, pytest, and Playwright.
 
 
 
 \*\*Live test reports:\*\* https://agawa03.github.io/saucedemo-e2e/
+
+
+
+!\[Test report](docs/report.png)
 
 
 
@@ -20,17 +24,19 @@ End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with 
 
 \- Page Object Model for maintainable locators and actions
 
-\- Reusable pytest fixtures (`login\_page`, `logged\_in`)
+\- Reusable pytest fixtures (`login\_page`, `logged\_in`, `checkout\_page`)
 
-\- Parametrized login tests covering invalid credentials
+\- Parametrized tests for invalid credentials and checkout validation
 
-\- Traces and screenshots captured automatically on failure
+\- API tests using Playwright's request context
 
-\- CI on GitHub Actions
+\- `smoke` and `regression` markers for running test subsets
 
 \- Cross-browser CI matrix (Chromium, Firefox, WebKit)
 
-\- API tests using Playwright's request context
+\- HTML reports published to GitHub Pages
+
+\- Traces and screenshots captured automatically on failure
 
 \- Linting and formatting enforced in CI with ruff
 
@@ -40,7 +46,27 @@ End-to-end UI tests for \[saucedemo.com](https://www.saucedemo.com), built with 
 
 
 
-Python, pytest, Playwright
+Python, pytest, Playwright, pytest-html, ruff, GitHub Actions
+
+
+
+\## Project structure
+
+
+
+```
+
+pages/        Page objects (login, inventory, checkout)
+
+tests/        UI and API tests
+
+conftest.py   Shared fixtures
+
+pytest.ini    Pytest config and markers
+
+.github/      CI workflow
+
+```
 
 
 
@@ -58,7 +84,7 @@ python -m venv venv
 
 venv\\Scripts\\activate
 
-pip install pytest-playwright
+pip install pytest-playwright pytest-html ruff
 
 playwright install chromium
 
@@ -80,6 +106,22 @@ python -m pytest
 
 python -m pytest --headed
 
+python -m pytest --browser firefox
+
+```
+
+
+
+\## Test markers
+
+
+
+```
+
+python -m pytest -m smoke
+
+python -m pytest -m regression
+
 ```
 
 
@@ -98,39 +140,27 @@ ruff format --check .
 
 
 
-\## Test markers
-
-
-
-```
-
-python -m pytest -m smoke        # fast critical-path checks
-
-python -m pytest -m regression   # full coverage
-
-The first command runs headless. The second opens a visible browser.
-
-```
-
-
-
 \## Test coverage
 
 
 
-| Area  | Tests                                                    |
+| Area      | Tests                                                          |
 
-|-------|----------------------------------------------------------|
+|-----------|----------------------------------------------------------------|
 
-| Login | Valid login, locked-out user, 3 invalid credential cases |
+| Login     | Valid login, locked-out user, 3 invalid credential cases       |
 
-| Cart  | Adding an item updates the cart badge                    |
+| Inventory | Product count, sorting by name and price                       |
 
-| Inventory | Product count, sorting by name and price |
+| Cart      | Add, add multiple, remove, cart page contents                  |
 
-| Checkout  | Full purchase flow, required-field validation, order summary |
+| Checkout  | Full purchase flow, required-field validation, order summary   |
 
-| API | GET, POST, PUT, DELETE, 404 handling, query filtering (JSONPlaceholder) |
+| API       | GET, POST, PUT, DELETE, 404 handling, query filtering          |
+
+
+
+26 tests in total.
 
 
 
@@ -143,4 +173,8 @@ The first command runs headless. The second opens a visible browser.
 \- \*\*Playwright:\*\* built-in auto-waiting reduces flaky tests, and tracing makes failures easy to debug.
 
 \- \*\*Fixtures:\*\* setup (opening the page, logging in) is shared instead of copied into every test.
+
+\- \*\*Markers:\*\* a fast smoke suite for quick feedback, a full regression suite for completeness.
+
+\- \*\*CI matrix:\*\* the same suite runs on three browser engines to catch browser-specific issues.
 
