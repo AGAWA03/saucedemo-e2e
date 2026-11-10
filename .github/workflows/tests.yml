@@ -1,6 +1,11 @@
 name: E2E tests
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,11 +18,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pytest-playwright
+      - run: pip install pytest-playwright pytest-html
       - run: playwright install --with-deps ${{ matrix.browser }}
-      - run: python -m pytest --browser ${{ matrix.browser }}
+      - run: python -m pytest --browser ${{ matrix.browser }} --html=report-${{ matrix.browser }}.html --self-contained-html
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-${{ matrix.browser }}
+          path: report-${{ matrix.browser }}.html
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: test-results-${{ matrix.browser }}
           path: test-results/
+
+  publish-report:
+    needs: test
+    if: always() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: report-*
+          path: site
+          merge-multiple: true
+      - run: |
+          cd site
+          echo "<html><body><h1>Test reports</h1><ul>" > index.html
+          for f in report-*.html; do echo "<li><a href=\"$f\">$f</a></li>" >> index.html; done
+          echo "</ul></body></html>" >> index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
