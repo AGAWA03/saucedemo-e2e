@@ -1,8 +1,8 @@
-\# SauceDemo E2E Test Suite
+SauceDemo E2E Test Suite
 
 
 
-!\[tests](https://github.com/agawa03/saucedemo-e2e/actions/workflows/tests.yml/badge.svg)
+Success Test (https://github.com/agawa03/saucedemo-e2e/actions/workflows/tests.yml/badge.svg)
 
 
 
@@ -10,7 +10,7 @@ End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), bui
 
 
 
-\*\*Live test reports:\*\* https://agawa03.github.io/saucedemo-e2e/
+Live test reports: https://agawa03.github.io/saucedemo-e2e/
 
 
 
@@ -49,7 +49,7 @@ Python, pytest, Playwright, pytest-html, ruff, GitHub Actions
 
 
 
-\## Project structure
+Project structure
 
 
 
@@ -161,17 +161,17 @@ Test coverage
 
 
 
-\## Design decisions
+Design decisions
 
 
 
-\- \*\*Page Object Model:\*\* locators live in one place, so a UI change means one fix, not many.
+Page Object Model: locators live in one place, so a UI change means one fix, not many.
 
-\- \*\*Playwright:\*\* built-in auto-waiting reduces flaky tests, and tracing makes failures easy to debug.
+Playwright: built-in auto-waiting reduces flaky tests, and tracing makes failures easy to debug.
 
-\- \*\*Fixtures:\*\* setup (opening the page, logging in) is shared instead of copied into every test.
+Fixtures: setup (opening the page, logging in) is shared instead of copied into every test.
 
-\- \*\*Markers:\*\* a fast smoke suite for quick feedback, a full regression suite for completeness.
+Markers: a fast smoke suite for quick feedback, a full regression suite for completeness.
 
-\- \*\*CI matrix:\*\* the same suite runs on three browser engines to catch browser-specific issues.
+CI matrix: the same suite runs on three browser engines to catch browser-specific issues.
 
