@@ -14,11 +14,10 @@ End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), bui
 
 
 
-!\[Test report](docs/report.png)
 
 
 
-\## Features
+Features
 
 
 
@@ -42,7 +41,7 @@ End-to-end UI and API tests for \[saucedemo.com](https://www.saucedemo.com), bui
 
 
 
-\## Tech stack
+Tech stack
 
 
 
@@ -70,7 +69,7 @@ pytest.ini    Pytest config and markers
 
 
 
-\## Setup
+Setup
 
 
 
@@ -96,7 +95,7 @@ On Mac/Linux, activate with `source venv/bin/activate` instead.
 
 
 
-\## Run the tests
+Run the tests
 
 
 
@@ -112,7 +111,7 @@ python -m pytest --browser firefox
 
 
 
-\## Test markers
+Test markers
 
 
 
@@ -126,7 +125,7 @@ python -m pytest -m regression
 
 
 
-\## Lint
+Lint
 
 
 
@@ -140,13 +139,11 @@ ruff format --check .
 
 
 
-\## Test coverage
+Test coverage
 
 
 
 | Area      | Tests                                                          |
-
-|-----------|----------------------------------------------------------------|
 
 | Login     | Valid login, locked-out user, 3 invalid credential cases       |
 
